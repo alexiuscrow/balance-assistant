@@ -1,13 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(request: NextRequest) {
-	const monores = await fetch('https://api.monobank.ua/personal/client-info', {
-    headers: {
-      'X-Token': process.env.MONO_TOKEN
-    }
-  });
+export async function GET() {
+  if (!process.env.MONO_TOKEN || !process.env.MONO_ACCOUNT) {
+    return NextResponse.error();
+  }
+
+  const headers: HeadersInit = {
+    'X-Token': process.env.MONO_TOKEN
+  };
+
+	const monores = await fetch('https://api.monobank.ua/personal/client-info', { headers });
   const data = await monores.json();
 
   const account = data.accounts.find(({id}) => id === process.env.MONO_ACCOUNT);
