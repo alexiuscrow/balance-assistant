@@ -14,7 +14,7 @@ export async function GET() {
 	const monores = await fetch('https://api.monobank.ua/personal/client-info', { headers });
   const data = await monores.json();
 
-  const account = data.accounts.find(({id}) => id === process.env.MONO_ACCOUNT);
+  const account = data.accounts.find(({id} : {id: string}) => id === process.env.MONO_ACCOUNT);
 
   if (!account) {
     return NextResponse.error();
