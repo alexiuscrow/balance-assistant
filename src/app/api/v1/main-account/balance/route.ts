@@ -23,5 +23,8 @@ export async function GET() {
   const {balance, creditLimit} = account;
   const myOwnBalance = balance - creditLimit;
 
-	return NextResponse.json({data: myOwnBalance / 100});
+	return NextResponse.json({
+    data: myOwnBalance / 100,
+    date: new Date().toISOString()
+  });
 }
