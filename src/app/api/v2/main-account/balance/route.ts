@@ -1,15 +1,16 @@
-import {NextResponse} from 'next/server';
-import {NextApiRequest} from 'next';
+import {NextRequest, NextResponse} from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextApiRequest) {
-  const {account: accountId, type = 'account'} = req.query;
+export async function GET(req: NextRequest) {
+  const searchParams = req.nextUrl.searchParams;
 
-  if (!process.env.MONO_TOKEN || !accountId) {
+  if (!process.env.MONO_TOKEN || !searchParams.has('account')) {
     return NextResponse.error();
   }
 
+  const accountId = searchParams.get('account');
+  const type = searchParams.has('type') ? searchParams.get('type') : 'account';
 
   const headers: HeadersInit = {
     'X-Token': process.env.MONO_TOKEN
