@@ -25,8 +25,15 @@ export async function GET(req: NextRequest) {
     return NextResponse.error();
   }
 
-  const {balance, creditLimit} = item;
-  const myOwnBalance = balance - creditLimit;
+  let myOwnBalance: number;
+
+  if (type === 'account') {
+    const {balance, creditLimit} = item;
+    myOwnBalance = balance - creditLimit;
+  } else {
+    const {balance} = item;
+    myOwnBalance = balance;
+  }
 
   return NextResponse.json({
     data: myOwnBalance / 100,
