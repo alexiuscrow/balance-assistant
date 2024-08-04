@@ -5,8 +5,16 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
 
-  if (!process.env.MONO_TOKEN || !searchParams.has('account')) {
-    return NextResponse.error();
+  if (!process.env.MONO_TOKEN) {
+    return new Response(
+      JSON.stringify({ error: `The MONO_TOKEN not found.` }), {
+        status: 500,
+      });
+  } else if (!searchParams.has('account')) {
+    return new Response(
+      JSON.stringify({ error: `The account params is not defined.` }), {
+      status: 400,
+    });
   }
 
   const accountId = searchParams.get('account');
@@ -22,7 +30,10 @@ export async function GET(req: NextRequest) {
   const item = data[`${type}s`]?.find(({id}: { id: string }) => id === accountId);
 
   if (!item) {
-    return NextResponse.error();
+    return new Response(
+      JSON.stringify({ error: `Account not found. Searched for the ${accountId}.`, available: data[`${type}s`] }), {
+      status: 400,
+    });
   }
 
   let myOwnBalance: number;
