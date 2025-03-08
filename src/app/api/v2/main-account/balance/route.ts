@@ -30,6 +30,9 @@ export async function GET(req: NextRequest) {
   const item = data[`${type}s`]?.find(({id}: { id: string }) => id === accountId);
 
   if (!item) {
+    console.log('Searching for', `'${type}s'`, `'${accountId}'`);
+    console.log('Account not found in', data[`${type}s`]);
+    console.log('Data', data);
     return new Response(
       JSON.stringify({ error: `Account not found. Searched for the ${accountId}.`, available: data[`${type}s`] }), {
       status: 400,
