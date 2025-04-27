@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -11,18 +11,24 @@
   "dependencies": {
     "@vercel/postgres": "0.7.2",
     "drizzle-orm": "0.29.4",
-    "next": "14.1.1",
-    "react": "^18",
-    "react-dom": "^18"
+    "next": "15.3.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "19.1.2",
+    "@types/react-dom": "19.1.2",
     "drizzle-kit": "0.20.14",
     "eslint": "^8",
-    "eslint-config-next": "14.1.1",
+    "eslint-config-next": "15.3.1",
     "prettier": "3.2.5",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.1.2",
+      "@types/react-dom": "19.1.2"
+    }
   }
 }

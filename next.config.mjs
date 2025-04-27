@@ -3,7 +3,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/api/v1/main-account/balance',
+        source: '/api/v2/main-account/balance',
         headers: [
           {
             key: 'Cache-Control',
